@@ -12,6 +12,7 @@ function test() {
 // test();
 
 // 常量不能修改，声明的时候必须赋值
+// 常量是对象，可以修改，因为对象是引用类型
 function last() {
   const PI = 3.1415926
   const k = {
