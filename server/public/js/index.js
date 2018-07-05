@@ -9221,45 +9221,45 @@
 
 	'use strict';
 
-	/* 数值扩展 */
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	/* 对象扩展 */
 	{
-	  // 二进制
-	  console.log(503);
-	  // 八进制
-	  console.log(503);
+	  // 简洁表达法
+	  var o = 1;
+	  var k = 2;
+	  var es5 = {
+	    o: o,
+	    k: k
+	  };
+	  var es6 = {
+	    o: o,
+	    k: k
+	  };
+	  console.log('es5:', es5, 'es6:', es6);
+
+	  var es5_method = {
+	    hello: function hello() {
+	      console.log('hello');
+	    }
+	  };
+	  var es6_method = {
+	    hello: function hello() {
+	      console.log('hello');
+	    }
+	  };
+	  console.log('es5_method:', es5_method, 'es6_method:', es6_method);
 	}
 
 	{
-	  // isFinite判断是否有效
-	  console.log('15', Number.isFinite(15));
-	  console.log('NaN', Number.isFinite(NaN));
-	  console.log('1/0', Number.isFinite('true' / 0));
-	  console.log('NaN', Number.isNaN(NaN));
-	}
-	// isInteger判断是否是整数
-	{
-	  console.log('25', Number.isInteger(25));
-	  console.log('25.0', Number.isInteger(25.0));
-	  console.log('25.1', Number.isInteger(25.1));
-	  console.log('25', Number.isInteger('25')); //必须是数字
-	}
-	// 数字最大值和最小值，安全范围
-	{
-	  console.log(Number.MAX_SAFE_INTEGER, Number.MIN_SAFE_INTEGER);
-	  console.log('10', Number.isSafeInteger('10'));
-	  console.log('a', Number.isSafeInteger('a'));
-	}
-	// Math.trunc取整
-	{
-	  console.log(4.1, Math.trunc(4.1));
-	  console.log(4.9, Math.trunc(4.9));
-	}
-	// 判断正数负数，Math.sign()值为-1，是负数；0，是0；1，是正数
-	{
-	  console.log('-5', Math.sign(-5));
-	  console.log('0', Math.sign(0));
-	  console.log('5', Math.sign(5));
-	  console.log('50', Math.sign(50));
+	  // 属性表达式
+	  var a = 'b';
+	  var es5_obj = {
+	    a: 'c',
+	    b: 'c'
+	    // a是变量取得的值是'b'
+	  };var es6_obj = _defineProperty({}, a, 'c');
+	  console.log('es5_obj:', es5_obj, 'es6_obj:', es6_obj);
 	}
 
 /***/ })
