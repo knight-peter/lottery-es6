@@ -9221,45 +9221,126 @@
 
 	'use strict';
 
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-	/* 对象扩展 */
+	/* Promise */
 	{
-	  // 简洁表达法
-	  var o = 1;
-	  var k = 2;
-	  var es5 = {
-	    o: o,
-	    k: k
+	  // 基本定义，回调
+	  var ajax = function ajax(callback) {
+	    console.log('执行');
+	    setTimeout(function () {
+	      callback && callback.call();
+	    }, 1000);
 	  };
-	  var es6 = {
-	    o: o,
-	    k: k
-	  };
-	  console.log('es5:', es5, 'es6:', es6);
-
-	  var es5_method = {
-	    hello: function hello() {
-	      console.log('hello');
-	    }
-	  };
-	  var es6_method = {
-	    hello: function hello() {
-	      console.log('hello');
-	    }
-	  };
-	  console.log('es5_method:', es5_method, 'es6_method:', es6_method);
+	  ajax(function () {
+	    console.log('timeout1');
+	  });
 	}
 
 	{
-	  // 属性表达式
-	  var a = 'b';
-	  var es5_obj = {
-	    a: 'c',
-	    b: 'c'
-	    // a是变量取得的值是'b'
-	  };var es6_obj = _defineProperty({}, a, 'c');
-	  console.log('es5_obj:', es5_obj, 'es6_obj:', es6_obj);
+	  var _ajax = function _ajax() {
+	    console.log('执行2');
+	    // resolve表示要执行下一步的操作，reject表示要中断当前的操作
+	    return new Promise(function (resolve, reject) {
+	      setTimeout(function () {
+	        resolve();
+	      }, 1000);
+	    });
+	  };
+	  _ajax().then(function () {
+	    // 对应resolve
+	    console.log('promise', 'timeout2');
+	  }, function () {
+	    // 对应reject
+	  });
+	}
+	// 多级回调
+	{
+	  var _ajax2 = function _ajax2() {
+	    console.log('执行3');
+	    // resolve表示要执行下一步的操作，reject表示要中断当前的操作
+	    return new Promise(function (resolve, reject) {
+	      setTimeout(function () {
+	        resolve();
+	      }, 1000);
+	    });
+	  };
+	  _ajax2().then(function () {
+	    return new Promise(function (resolve, reject) {
+	      setTimeout(function () {
+	        resolve();
+	      }, 2000);
+	    });
+	  }).then(function () {
+	    console.log('timeout3');
+	  });
+	}
+
+	{
+	  var _ajax3 = function _ajax3(num) {
+	    console.log('执行4');
+	    return new Promise(function (resolve, reject) {
+	      if (num > 5) {
+	        resolve(num);
+	      } else {
+	        throw new Error('出错了');
+	      }
+	    });
+	  };
+
+	  _ajax3(6).then(function (num) {
+	    console.log('log', num);
+	  }).catch(function (err) {
+	    console.log('catch', err);
+	  });
+	}
+	// 所有图片加载完再添加到页面
+	{
+	  var loadImg = function loadImg(src) {
+	    return new Promise(function (resolve, reject) {
+	      var img = document.createElement('img');
+	      img.src = src;
+	      img.onload = function () {
+	        resolve(img);
+	      };
+	      img.onerror = function (err) {
+	        reject(err);
+	      };
+	    });
+	  };
+
+	  var showImgs = function showImgs(imgs) {
+	    imgs.forEach(function (img) {
+	      document.body.appendChild(img);
+	    });
+	  };
+
+	  // Promise.all()把多个Promise实例当成一个新的Promise实例，所以必须是所有promise实例发生变化，才会进行下一步
+
+
+	  Promise.all([loadImg('http://i4.buimg.com/567571/df1ef0720bea6832.png'), loadImg('http://i4.buimg.com/567751/2b07ee25b08930ba.png'), loadImg('http://i2.muimg.com/567751/5eb8190d6b2a1c9c.png')]).then(showImgs);
+	}
+
+	{
+	  // 有一个图片加载完就添加到页面
+	  var _loadImg = function _loadImg(src) {
+	    return new Promise(function (resolve, reject) {
+	      var img = document.createElement('img');
+	      img.src = src;
+	      img.onload = function () {
+	        resolve(img);
+	      };
+	      img.onerror = function (err) {
+	        reject(err);
+	      };
+	    });
+	  };
+
+	  var _showImgs = function _showImgs(img) {
+	    var p = document.createElement('p');
+	    p.appendChild(img);
+	    document.body.appendChild(p);
+	  };
+
+	  Promise.race([_loadImg('http://i4.buimg.com/567571/df1ef0720bea6832.png'), _loadImg('http://i4.buimg.com/567751/2b07ee25b08930ba.png'), _loadImg('http://i2.muimg.com/567751/5eb8190d6b2a1c9c.png')]).then(_showImgs);
 	}
 
 /***/ })

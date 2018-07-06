@@ -39,3 +39,39 @@
   }
   console.log('es5_obj:', es5_obj, 'es6_obj:', es6_obj)
 }
+
+{
+  // 新增API .is()判断两个参数是否相等,相当于 === 的作用
+  console.log('字符串', Object.is('abc', 'abc'), 'abc' === 'abc')
+  console.log('数组', Object.is([], []), [] === [])
+  // 浅复制
+  console.log('拷贝', Object.assign({
+    a: 'a'
+  }, {
+    b: 'b'
+  }))
+
+  let test = {
+    k: 123,
+    o: 456
+  };
+  // .entries()，返回key和value
+  for (let [key, value] of Object.entries(test)) {
+    console.log([key, value])
+  }
+}
+
+/* {
+  // 扩展运算符
+  let {
+    a,
+    b,
+    ...c
+  } = {
+    a: 'test',
+    b: 'kill',
+    c: 'ddd',
+    d: 'ccc'
+  }
+  console.log(a, b, c)
+} */
