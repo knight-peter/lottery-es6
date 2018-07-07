@@ -83,7 +83,7 @@
       }
     })
   }
-
+  // 把图片添加到body中
   function showImgs(imgs) {
     imgs.forEach(function (img) {
       document.body.appendChild(img);

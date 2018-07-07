@@ -55,7 +55,46 @@
 
 	__webpack_require__(2);
 
-	__webpack_require__(329);
+	var _lesson = __webpack_require__(329);
+
+	var _lesson2 = _interopRequireDefault(_lesson);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	console.log(_lesson2.default.A);
+	// import './class/lesson1'
+	// import './class/lesson2'
+	// import './class/lesson3'
+	// import './class/lesson4'
+	// import './class/lesson5'
+	// import './class/lesson7'
+	// import './class/lesson8'
+	// import './class/lesson9'
+	// import './class/lesson10'
+	// import './class/lesson11'
+	// import './class/lesson12'
+	// import './class/lesson13'
+	// import './class/lesson14'
+	// import './class/lesson15' //Generator
+	// import './class/lesson16' //Decorator 修饰器
+	// import './class/lesson17' //模块化
+
+	/* import {
+	  A,
+	  test,
+	  Hello
+	} from './class/lesson17' */
+
+	// console.log(A, test, Hello)
+	// 只用导出的其中一项
+	/* import {
+	  A,
+	} from './class/lesson17'
+	console.log(A) */
+
+	// 不用去关系导出项的每个名称,*代表导入的所有项，lesson17是别名，所有项放到lesson17这个对象下面
+	/* import * as lesson17 from './class/lesson17'
+	console.log(lesson17.A, lesson17.test) */
 
 /***/ }),
 /* 2 */
@@ -9221,127 +9260,54 @@
 
 	'use strict';
 
-	/* Promise */
-	{
-	  // 基本定义，回调
-	  var ajax = function ajax(callback) {
-	    console.log('执行');
-	    setTimeout(function () {
-	      callback && callback.call();
-	    }, 1000);
-	  };
-	  ajax(function () {
-	    console.log('timeout1');
-	  });
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	/* 模块化 */
+	/* export let A = 123;
+
+	export function test() {
+	  console.log('test')
 	}
 
-	{
-	  var _ajax = function _ajax() {
-	    console.log('执行2');
-	    // resolve表示要执行下一步的操作，reject表示要中断当前的操作
-	    return new Promise(function (resolve, reject) {
-	      setTimeout(function () {
-	        resolve();
-	      }, 1000);
-	    });
-	  };
-	  _ajax().then(function () {
-	    // 对应resolve
-	    console.log('promise', 'timeout2');
-	  }, function () {
-	    // 对应reject
-	  });
-	}
-	// 多级回调
-	{
-	  var _ajax2 = function _ajax2() {
-	    console.log('执行3');
-	    // resolve表示要执行下一步的操作，reject表示要中断当前的操作
-	    return new Promise(function (resolve, reject) {
-	      setTimeout(function () {
-	        resolve();
-	      }, 1000);
-	    });
-	  };
-	  _ajax2().then(function () {
-	    return new Promise(function (resolve, reject) {
-	      setTimeout(function () {
-	        resolve();
-	      }, 2000);
-	    });
-	  }).then(function () {
-	    console.log('timeout3');
-	  });
+	export class Hello {
+	  test() {
+	    console.log('class')
+	  }
+	} */
+
+	/* 推荐写法 */
+	var A = 123;
+
+	function test() {
+	  console.log('test');
 	}
 
-	{
-	  var _ajax3 = function _ajax3(num) {
-	    console.log('执行4');
-	    return new Promise(function (resolve, reject) {
-	      if (num > 5) {
-	        resolve(num);
-	      } else {
-	        throw new Error('出错了');
-	      }
-	    });
-	  };
+	var Hello = function () {
+	  function Hello() {
+	    _classCallCheck(this, Hello);
+	  }
 
-	  _ajax3(6).then(function (num) {
-	    console.log('log', num);
-	  }).catch(function (err) {
-	    console.log('catch', err);
-	  });
-	}
-	// 所有图片加载完再添加到页面
-	{
-	  var loadImg = function loadImg(src) {
-	    return new Promise(function (resolve, reject) {
-	      var img = document.createElement('img');
-	      img.src = src;
-	      img.onload = function () {
-	        resolve(img);
-	      };
-	      img.onerror = function (err) {
-	        reject(err);
-	      };
-	    });
-	  };
+	  _createClass(Hello, [{
+	    key: 'test',
+	    value: function test() {
+	      console.log('class');
+	    }
+	  }]);
 
-	  var showImgs = function showImgs(imgs) {
-	    imgs.forEach(function (img) {
-	      document.body.appendChild(img);
-	    });
-	  };
+	  return Hello;
+	}();
 
-	  // Promise.all()把多个Promise实例当成一个新的Promise实例，所以必须是所有promise实例发生变化，才会进行下一步
-
-
-	  Promise.all([loadImg('http://i4.buimg.com/567571/df1ef0720bea6832.png'), loadImg('http://i4.buimg.com/567751/2b07ee25b08930ba.png'), loadImg('http://i2.muimg.com/567751/5eb8190d6b2a1c9c.png')]).then(showImgs);
-	}
-
-	{
-	  // 有一个图片加载完就添加到页面
-	  var _loadImg = function _loadImg(src) {
-	    return new Promise(function (resolve, reject) {
-	      var img = document.createElement('img');
-	      img.src = src;
-	      img.onload = function () {
-	        resolve(img);
-	      };
-	      img.onerror = function (err) {
-	        reject(err);
-	      };
-	    });
-	  };
-
-	  var _showImgs = function _showImgs(img) {
-	    var p = document.createElement('p');
-	    p.appendChild(img);
-	    document.body.appendChild(p);
-	  };
-
-	  Promise.race([_loadImg('http://i4.buimg.com/567571/df1ef0720bea6832.png'), _loadImg('http://i4.buimg.com/567751/2b07ee25b08930ba.png'), _loadImg('http://i2.muimg.com/567751/5eb8190d6b2a1c9c.png')]).then(_showImgs);
-	}
+	exports.default = {
+	  A: A,
+	  test: test,
+	  Hello: Hello
+	};
 
 /***/ })
 /******/ ]);
