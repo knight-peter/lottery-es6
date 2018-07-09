@@ -34,5 +34,7 @@ console.log(A) */
 /* import * as lesson17 from './class/lesson17'
 console.log(lesson17.A, lesson17.test) */
 
-import lesson17 from './class/lesson17'
-console.log(lesson17.A)
+/* import lesson17 from './class/lesson17'
+console.log(lesson17.A) */
+
+import Lottery from './lottery';
