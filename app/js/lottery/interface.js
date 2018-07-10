@@ -1,14 +1,10 @@
 import $ from 'jquery';
-import {
-  resolve
-} from 'path';
 
 class Interface {
-  /** 
+  /**
    * [getOmit 获取遗漏数据]
-   * @param {string} issue [当前期号]
-   * @return {[type]}      [description]
-   *
+   * @param  {string} issue [当前期号]
+   * @return {[type]}       [description]
    */
   getOmit(issue) {
     let self = this;
@@ -22,19 +18,23 @@ class Interface {
         dataType: 'json',
         success: function (res) {
           // 2.用对象方法方式，利用class继承，可以使用其他模块的方法。避免回调
-          self.setOmit(res.data)
-          resoleve.call(self, res)
+          self.setOmit(res.data);
+          resolve.call(self, res)
         },
         error: function (err) {
-          reject.call(err)
+          reject.call(err);
         }
       })
-    })
+    });
   }
-  /* 获取开奖号码，issue 期号 */
+  /**
+   * [getOpenCode 获取开奖号码]
+   * @param  {string} issue [期号]
+   * @return {[type]}       [description]
+   */
   getOpenCode(issue) {
     let self = this;
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, rejet) => {
       $.ajax({
         url: '/get/opencode',
         data: {
@@ -43,18 +43,23 @@ class Interface {
         dataType: 'json',
         success: function (res) {
           self.setOpenCode(res.data);
-          resolve.call(self, res)
+          resolve.call(self, res);
         },
         error: function (err) {
-          reject.call(err)
+          reject.call(err);
         }
       })
-    })
+    });
   }
-  /* 获取当前状态,issue 期号 */
+
+  /**
+   * [getState 获取当前状态]
+   * @param  {string} issue [当前期号]
+   * @return {[type]}       [description]
+   */
   getState(issue) {
     let self = this;
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, rejet) => {
       $.ajax({
         url: '/get/state',
         data: {
@@ -62,13 +67,13 @@ class Interface {
         },
         dataType: 'json',
         success: function (res) {
-          resolve.call(self, res)
+          resolve.call(self, res);
         },
         error: function (err) {
-          reject.call(err)
+          reject.call(err);
         }
       })
-    })
+    });
   }
 }
 

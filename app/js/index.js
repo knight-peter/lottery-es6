@@ -37,4 +37,7 @@ console.log(lesson17.A, lesson17.test) */
 /* import lesson17 from './class/lesson17'
 console.log(lesson17.A) */
 
+import 'babel-polyfill';
 import Lottery from './lottery';
+
+const syy = new Lottery();
